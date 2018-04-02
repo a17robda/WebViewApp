@@ -1,7 +1,6 @@
 package com.example.brom.webviewapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
     // Create a private member variable that can hold our WebView
-
+    private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         /* This code is run when the App is created. Include code that creates your WebView */
@@ -25,17 +25,15 @@ public class MainActivity extends AppCompatActivity {
         // 1. Create a WebView element in the layout file content_main.xml
         // 2. Give the WebView element created in step 1 ID "my_webview"
         // Enter your code that creates your WebView here...
+        webView = (WebView) findViewById(R.id.my_webview);
+
         // 3. Locate the WebView element created in step 1 using the ID created in step 2
         // 4. Create a new WebViewClient to attach to our WebView. This allows us to
         //    browse the web inside our app.
+        webView.setWebViewClient(new WebViewClient());
         // 5. Enter the url to load in our WebView
-
-        WebView wv = new WebView(this);
-        setContentView(wv);
-        WebSettings ws = wv.getSettings();
-        ws.setJavaScriptEnabled(true);
-        wv.loadUrl("http://wwwlab.iit.his.se/a17robda/mobilapplikationsdesign/projekt/");
-
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://wwwlab.iit.his.se/a17robda/mobilapplikationsdesign/projekt/index.html");
     }
 
     @Override
@@ -54,8 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            webView.loadUrl("file:///android_asset/about.html");
             return true;
         }
+
+        if (id == R.id.action_app) {
+            webView.loadUrl("http://wwwlab.iit.his.se/a17robda/mobilapplikationsdesign/projekt/index.html");
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
